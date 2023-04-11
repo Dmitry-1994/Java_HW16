@@ -42,7 +42,7 @@ public class Game {
             }
         }
 
-        if ((playerFirst == null) || (playerSecond == null)) {
+        if ((playerFirst == null) | (playerSecond == null)) {
             if (playerFirst == null) {
                 throw new NotRegisteredException(
                         "Игрок с именем " + playerName1 + " не зарегистрирован"
