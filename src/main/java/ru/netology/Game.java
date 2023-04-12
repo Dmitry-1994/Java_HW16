@@ -9,31 +9,12 @@ public class Game {
 
     //Метод для регистрации игроков в турнире
     public void register(Player player) {
-        int index = 0;
-        for (Player players : playerRegistered) {
-            if (players.getId() == player.getId()) {
-                index++;
-                break;
-            }
-        }
-        if (index == 0) {
-            playerRegistered.add(player);
-        } else {
+        if (playerRegistered.contains(player)) {
             throw new NotRegisteredException(
                     "Данный игрок уже зарегистрирован");
+        } else {
+            playerRegistered.add(player);
         }
-
-        /*Почему этот код не работает?
-        Если этот код использовать вместо того, который выше,
-        то тест mustBeRegisteredNegative не проходит
-         */
-
-//        if (playerRegistered.contains(player)) {
-//            throw new NotRegisteredException(
-//                    "Данный игрок уже зарегистрирован");
-//        } else {
-//            playerRegistered.add(player);
-//        }
 
     }
 

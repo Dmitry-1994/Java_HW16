@@ -53,8 +53,9 @@ public class GameTest {
     @Test
     public void mustBeRegisteredNegative() {
         game.register(player_4);
+        game.register(player_5);
 
-       Assertions.assertThrows(NotRegisteredException.class, () -> {
+        Assertions.assertThrows(NotRegisteredException.class, () -> {
             game.register(player_5);
         });
     }
