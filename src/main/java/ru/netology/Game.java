@@ -1,30 +1,35 @@
 package ru.netology;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 
 public class Game {
     PlayerStrengthComparator strengthComparator = new PlayerStrengthComparator();
-    List<Player> playerRegistered = new ArrayList<>();
+    HashMap<String, Player> playerRegistered = new HashMap<>();
 
     //Метод для регистрации игроков в турнире
     public void register(Player player) {
-        int index = 0;
-        for (Player players : playerRegistered) {
-            if (players.getId() == player.getId()) {
-                index++;
-                break;
-            }
-        }
-        if (index == 0) {
-            playerRegistered.add(player);
+        if (playerRegistered.containsValue(player)) {
+            throw new NotRegisteredException("Данный игрок уже зарегистрирован");
         } else {
-            throw new NotRegisteredException(
-                    "Данный игрок уже зарегистрирован");
+            playerRegistered.put(player.getName(), player);
         }
+
     }
 
-    public List<Player> findRegistered() {
+    // Метод для поиска информации об игроке по его имени
+    public Player infoByName (String name) {
+        Player infoResult = null;
+        for (String key : playerRegistered.keySet()) {
+            Player players = playerRegistered.get(key);
+
+            if (players.getName().equals(name)) {
+                infoResult = players;
+            }
+        }
+        return infoResult;
+    }
+
+    public HashMap<String, Player> findRegistered() {
         return playerRegistered;
     }
 
@@ -33,7 +38,7 @@ public class Game {
         Player playerFirst = null;
         Player playerSecond = null;
 
-        for (Player player : playerRegistered) {
+        for (Player player : playerRegistered.values()) {
             if (player.getName().equals(playerName1)) {
                 playerFirst = player;
             }
