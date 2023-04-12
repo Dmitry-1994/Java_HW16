@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class GameTest {
@@ -16,8 +17,8 @@ public class GameTest {
 
     @Test
     public void mustBeRegisteredNull() {
-        List<Player> expected = new ArrayList<>();
-        List<Player> actual = game.findRegistered();
+        HashMap<String, Player> expected = new HashMap<>();
+        HashMap<String, Player> actual = game.findRegistered();
 
         Assertions.assertEquals(expected, actual);
     }
@@ -26,9 +27,9 @@ public class GameTest {
     public void mustBeRegisteredOne() {
         game.register(player_1);
 
-        List<Player> expected = new ArrayList<>();
-        expected.add(player_1);
-        List<Player> actual = game.findRegistered();
+        HashMap<String, Player> expected = new HashMap<>();
+        expected.put(player_1.getName(), player_1);
+        HashMap<String, Player> actual = game.findRegistered();
 
         Assertions.assertEquals(expected, actual);
     }
@@ -40,12 +41,12 @@ public class GameTest {
         game.register(player_3);
         game.register(player_4);
 
-        List<Player> expected = new ArrayList<>();
-        expected.add(player_1);
-        expected.add(player_2);
-        expected.add(player_3);
-        expected.add(player_4);
-        List<Player> actual = game.findRegistered();
+        HashMap<String, Player> expected = new HashMap<>();
+        expected.put(player_1.getName(), player_1);
+        expected.put(player_2.getName(), player_2);
+        expected.put(player_3.getName(), player_3);
+        expected.put(player_4.getName(), player_4);
+        HashMap<String, Player> actual = game.findRegistered();
 
         Assertions.assertEquals(expected, actual);
     }
@@ -58,6 +59,29 @@ public class GameTest {
         Assertions.assertThrows(NotRegisteredException.class, () -> {
             game.register(player_5);
         });
+    }
+
+    @Test
+    public void foundByNameNull() {
+        game.register(player_1);
+
+        Player expected = null;
+        Player actual = game.infoByName("Oleg");
+
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void foundByNameOne() {
+        game.register(player_1);
+        game.register(player_2);
+        game.register(player_3);
+        game.register(player_4);
+
+        Player expected = player_3;
+        Player actual = game.infoByName("Igor");
+
+        Assertions.assertEquals(expected, actual);
     }
 
     @Test
