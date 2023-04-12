@@ -22,6 +22,19 @@ public class Game {
             throw new NotRegisteredException(
                     "Данный игрок уже зарегистрирован");
         }
+
+        /*Почему этот код не работает?
+        Если этот код использовать вместо того, который выше,
+        то тест mustBeRegisteredNegative не проходит
+         */
+
+//        if (playerRegistered.contains(player)) {
+//            throw new NotRegisteredException(
+//                    "Данный игрок уже зарегистрирован");
+//        } else {
+//            playerRegistered.add(player);
+//        }
+
     }
 
     public List<Player> findRegistered() {
